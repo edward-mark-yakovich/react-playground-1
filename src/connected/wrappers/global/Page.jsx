@@ -1,9 +1,8 @@
 import './main.scss';
 
-import _ from 'lodash';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Nav from '@components/base/nav/Nav.jsx';
+import Nav from '@components/pageTemplates/nav/Nav.jsx';
 import LoaderIcon from '@components/base/loader-icon/LoaderIcon.jsx';
 
 export class Page extends Component {
