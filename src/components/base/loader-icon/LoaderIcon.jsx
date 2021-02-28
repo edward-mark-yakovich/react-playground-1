@@ -12,7 +12,7 @@ export class LoaderIcon extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => this.setState({init: true}), 500);
+    setTimeout(() => this.setState({init: true}), 100);
   }
 
   render() {

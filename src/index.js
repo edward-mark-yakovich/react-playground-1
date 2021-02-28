@@ -39,7 +39,7 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history} basename={`${subPath}`}>
       <Fragment>
-        <div className="app _emy_myAppName--v-1.0.5">
+        <div className="app _emy_myAppName--v-1.0.6">
           <Switch>
             <RouteWithBoundary exact={true} path={`${subPath}/`} component={HomePage} />
             <RouteWithBoundary exact={true} path={`${subPath}/posts/:slug`} component={SinglePostPage} />
