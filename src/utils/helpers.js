@@ -34,3 +34,11 @@ export function logErrorRemotely(error, errorInfo = {}) {
     console.log(e);
   }
 }
+
+export function isRequestError(result) {
+  if (result === CEASE_EXECUTION) {
+    return true;
+  }
+
+  return _.has(result, 'response.status') && result.response.status !== 200;
+}

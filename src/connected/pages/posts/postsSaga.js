@@ -12,6 +12,9 @@ import {
 import {
   requestPosts
 } from '@utils/apiHelpers';
+import {
+  isRequestError
+} from '@utils/helpers';
 
 // WATCHERS
 export function* getPostsWatch() {
@@ -25,6 +28,15 @@ export function* getPostsWorker(action) {
   });
 
   const posts = data || [];
+
+  if (isRequestError(data)) {
+    yield put({
+      type: SET_POSTS,
+      posts: []
+    });
+
+    return;
+  }
 
   yield put({
     type: SET_POSTS,

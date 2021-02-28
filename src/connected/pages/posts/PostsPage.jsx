@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  getPosts
+  getPosts,
+  setPostCurrentPage
 } from './postsReducer';
 import Posts from './Posts.jsx';
 
@@ -11,6 +12,8 @@ export class PostsPage extends Component {
   render() {
     return (
       <Posts
+        setPostCurrentPage={this.props.setPostCurrentPage}
+        postCurrentPage={this.props.postCurrentPage}
         getPosts={this.props.getPosts}
         posts={this.props.posts}
         postsLoaded={this.props.postsLoaded}
@@ -31,14 +34,17 @@ PostsPage.propTypes = {
   getPosts: PropTypes.func,
   location: PropTypes.object,
   match: PropTypes.object,
+  postCurrentPage: PropTypes.number,
   posts: PropTypes.array,
   postsLoaded: PropTypes.bool,
   prevPath: PropTypes.string,
-  prevSearch: PropTypes.string
+  prevSearch: PropTypes.string,
+  setPostCurrentPage: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
+    postCurrentPage: state.postsReducer.postCurrentPage,
     posts: state.postsReducer.posts,
     postsLoaded: state.postsReducer.postsLoaded,
     prevPath: state.routerReducer.prevPath,
@@ -51,6 +57,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getPosts: bindActionCreators(getPosts, dispatch),
+    setPostCurrentPage: bindActionCreators(setPostCurrentPage, dispatch)
   };
 }
 

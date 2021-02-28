@@ -8,20 +8,31 @@ export class Pagination extends Component {
     super(props);
 
     this.state = {
-      page: 1
+      page: props.currentPage || 1
     };
   }
 
   handlePagination(dir) {
-    const {handleChosenPage} = this.props;
     const {page} = this.state;
 
     let updatedPage = page;
 
     dir === 'forward' ? ++updatedPage : --updatedPage;
 
-    handleChosenPage(updatedPage);
-    this.setState({page: updatedPage});
+    this.sendOffPage(updatedPage);
+  }
+
+  handlePaginationDirect(event) {
+    const val = event.target.value;
+
+    this.sendOffPage(parseInt(val) || 1);
+  }
+
+  sendOffPage(newPage) {
+    const {handleChosenPage} = this.props;
+
+    handleChosenPage(newPage);
+    this.setState({page: newPage});
 
     window.scrollTo(0, 0);
   }
@@ -39,7 +50,10 @@ export class Pagination extends Component {
             Previous
           </button>
 
-          <div className="pagination__counter">{page}</div>
+          <div className="pagination__counter">
+            <label className="vh" htmlFor="pagination__input-ID-01">{page}</label>
+            <input value={page} onChange={this.handlePaginationDirect.bind(this)} type="text" name="pagination__input-ID-01" id="pagination__input-ID-01" />
+          </div>
 
           <button disabled={endOfPages} className="pagination__btn" onClick={this.handlePagination.bind(this, 'forward')}>
             Next
@@ -51,6 +65,7 @@ export class Pagination extends Component {
 }
 
 Pagination.propTypes = {
+  currentPage: PropTypes.number,
   endOfPages: PropTypes.bool,
   handleChosenPage: PropTypes.func
 };

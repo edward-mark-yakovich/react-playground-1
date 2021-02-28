@@ -29,16 +29,14 @@ export const homeReducer = (state = initialState, action = {}) => {
     }
 };
 
-export const getHomeIntro = (params, loaderConfig) => ({
+export const getHomeIntro = (params) => ({
   type: GET_HOME_INTRO,
-  params,
-  loaderConfig
+  params
 });
 
-export const getHomeCategories = (params, loaderConfig) => ({
+export const getHomeCategories = (params) => ({
   type: GET_HOME_CATEGORIES,
-  params,
-  loaderConfig
+  params
 });
 
 export default homeReducer;

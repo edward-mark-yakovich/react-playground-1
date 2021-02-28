@@ -26,10 +26,9 @@ export const singlePostReducer = (state = initialState, action = {}) => {
     }
 };
 
-export const getSinglePost = (params, loaderConfig) => ({
+export const getSinglePost = (params) => ({
   type: GET_SINGLE_POST,
-  params,
-  loaderConfig
+  params
 });
 
 export const resetSinglePost = () => ({

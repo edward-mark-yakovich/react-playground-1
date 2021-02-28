@@ -14,7 +14,7 @@ export class Posts extends Component {
 
     this.state = {
       postConfig: {
-        page: 1,
+        page: props.postCurrentPage,
         perPage: 20
       }
     };
@@ -35,7 +35,10 @@ export class Posts extends Component {
   }
 
   goToPostPage(newPage) {
-    const {getPosts} = this.props;
+    const {
+      getPosts,
+      setPostCurrentPage
+    } = this.props;
     const {postConfig} = this.state;
 
     let updatedPostConfig = {
@@ -44,15 +47,18 @@ export class Posts extends Component {
     };
 
     getPosts(updatedPostConfig);
+    setPostCurrentPage(newPage);
   }
 
   render() {
     const {
       match,
       posts,
-      postsLoaded
+      postsLoaded,
+      postCurrentPage
     } = this.props;
     const {postConfig} = this.state;
+    const noPostsAvailable = postsLoaded && _.isEmpty(posts);
 
     return (
       <Page
@@ -64,6 +70,10 @@ export class Posts extends Component {
           <div className="page__heading">
             <h1>Posts</h1>
           </div>
+
+          {noPostsAvailable &&
+            <p>No posts available...</p>
+          }
 
           {!postsLoaded
             ? <p>Fetching data...</p>
@@ -88,8 +98,9 @@ export class Posts extends Component {
                 </div>
 
                 <Pagination
+                  currentPage={postCurrentPage}
                   handleChosenPage={this.goToPostPage.bind(this)}
-                  endOfPages={_.isEmpty(posts) || postConfig.perPage > posts.length}
+                  endOfPages={noPostsAvailable || postConfig.perPage > posts.length}
                 />
               </div>
           }
@@ -106,10 +117,12 @@ Posts.propTypes = {
   getPosts: PropTypes.func,
   location: PropTypes.object,
   match: PropTypes.object,
+  postCurrentPage: PropTypes.number,
   posts: PropTypes.array,
   postsLoaded: PropTypes.bool,
   prevPath: PropTypes.string,
-  prevSearch: PropTypes.string
+  prevSearch: PropTypes.string,
+  setPostCurrentPage: PropTypes.func
 };
 
 export default Posts;
