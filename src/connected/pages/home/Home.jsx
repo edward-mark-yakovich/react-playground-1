@@ -15,13 +15,21 @@ export class Home extends Component {
     getHomeCategories();
   }
 
+  updatePostPage() {
+    const {setPostCurrentPage, postCurrentPage} = this.props;
+    const updatedPage = postCurrentPage + 1;
+
+    setPostCurrentPage(updatedPage);
+  }
+
   render() {
     const {
       match,
       categories,
       categoriesLoaded,
       intro,
-      introLoaded
+      introLoaded,
+      postCurrentPage
     } = this.props;
     const content = intro[0];
 
@@ -34,6 +42,14 @@ export class Home extends Component {
 
           <div className="page__heading">
             <h1>Home</h1>
+            <p>Playing with React stuff... Redux / Sagas</p>
+          </div>
+
+          <div className="home-intro-top">
+            <div>
+              <button onClick={this.updatePostPage.bind(this)}>Set post page</button>
+              <span> = {postCurrentPage} </span>
+            </div>
           </div>
 
           {!introLoaded
@@ -92,6 +108,8 @@ Home.propTypes = {
   intro: PropTypes.array,
   introLoaded: PropTypes.bool,
   match: PropTypes.object,
+  postCurrentPage: PropTypes.number,
+  setPostCurrentPage: PropTypes.func
 };
 
 export default Home;

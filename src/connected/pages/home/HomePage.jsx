@@ -6,12 +6,17 @@ import {
   getHomeIntro,
   getHomeCategories
 } from './homeReducer';
+import {
+  setPostCurrentPage
+} from '@connected/pages/posts/postsReducer';
 import Home from './Home.jsx';
 
 export class HomePage extends Component {
   render() {
     return (
       <Home
+        setPostCurrentPage={this.props.setPostCurrentPage}
+        postCurrentPage={this.props.postCurrentPage}
         getHomeIntro={this.props.getHomeIntro}
         getHomeCategories={this.props.getHomeCategories}
         categories={this.props.categories}
@@ -40,8 +45,10 @@ HomePage.propTypes = {
   introLoaded: PropTypes.bool,
   location: PropTypes.object,
   match: PropTypes.object,
+  postCurrentPage: PropTypes.number,
   prevPath: PropTypes.string,
-  prevSearch: PropTypes.string
+  prevSearch: PropTypes.string,
+  setPostCurrentPage: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -54,13 +61,15 @@ function mapStateToProps(state) {
     prevSearch: state.routerReducer.prevSearch,
     currentPath: state.routerReducer.currentPath,
     currentSearch: state.routerReducer.currentSearch,
+    postCurrentPage: state.postsReducer.postCurrentPage
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getHomeIntro: bindActionCreators(getHomeIntro, dispatch),
-    getHomeCategories: bindActionCreators(getHomeCategories, dispatch)
+    getHomeCategories: bindActionCreators(getHomeCategories, dispatch),
+    setPostCurrentPage: bindActionCreators(setPostCurrentPage, dispatch)
   };
 }
 
