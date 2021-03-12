@@ -79,9 +79,9 @@ export class Posts extends Component {
             ? <p>Fetching data...</p>
             : <div className="post-listing">
                 <div className="post-listing__btns grid">
-                  {_.map(posts, (post, index) => {
+                  {_.map(posts, (post) => {
                     return (
-                      <button className="post-btn" key={index} onClick={this.handleGoToPost.bind(this, post.slug)}>
+                      <button className="post-btn" key={post.id} onClick={this.handleGoToPost.bind(this, post.slug)}>
                         <div className="post-btn__img">
                           <img src={post?._embedded?.['wp:featuredmedia']?.['0'].source_url || ''} />
                         </div>
